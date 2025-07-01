@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut } from "firebase/auth";
 import auth from "../../firebase/firebase.init";
 import { AuthContext } from "./AuthContext";
 
@@ -23,6 +23,12 @@ const Authprovider = ({ children }) => {
         setLoading(true)
         return signOut(auth)
     }
+
+    const googleSignin = () => {
+        setLoading(true)
+        const provider = new GoogleAuthProvider();
+        return signInWithPopup(auth, provider)
+    }
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
             console.log("state caPTURED", currentUser)
@@ -38,6 +44,7 @@ const Authprovider = ({ children }) => {
         loading,
         createUser,
         signInuser,
+        googleSignin,
         signOutuser
     };
 
