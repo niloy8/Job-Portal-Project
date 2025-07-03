@@ -3,8 +3,14 @@ import animationLogin from "../../assets/Lottie/register.json"
 import { useContext } from "react";
 import { AuthContext } from "../../context/AuthProvider/AuthContext";
 import SocialLogin from "../shared/SocialLogin";
+import { useLocation, useNavigate } from "react-router";
 const Signin = () => {
     const { signInuser } = useContext(AuthContext)
+
+    const location = useLocation()
+    console.log(location)
+    const from = location.state || "/"
+    const navigate = useNavigate()
     const handleSignin = (e) => {
         e.preventDefault()
         const email = e.target.email.value
@@ -12,6 +18,7 @@ const Signin = () => {
         signInuser(email, password)
             .then(result => {
                 const user = result.user
+                navigate(from)
                 console.log(user)
             })
             .catch(er => {

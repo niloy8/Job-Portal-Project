@@ -22,7 +22,7 @@ const JobCard = ({ job }) => {
                 </h2>
                 <p>{description}</p>
                 <div className="card-actions justify-start ">
-                    {requirements.map(skill => <div className="badge badge-outline cursor-pointer hover:text-yellow-300">{skill}</div>)}
+                    {requirements.map((skill, index) => <div key={index} className="badge badge-outline cursor-pointer hover:text-yellow-300">{skill}</div>)}
                 </div>
                 <div className="flex items-center">
                     <p className="flex items-center"><FaDollarSign />{salaryRange.min} - {salaryRange.max}</p>
