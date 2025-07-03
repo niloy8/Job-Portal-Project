@@ -1,7 +1,8 @@
 import { HiOutlineLocationMarker } from "react-icons/hi";
 import { FaDollarSign } from "react-icons/fa6";
+import { NavLink } from "react-router";
 const JobCard = ({ job }) => {
-    const { title, location, company_logo, company, requirements, description, salaryRange } = job;
+    const { _id, title, location, company_logo, company, requirements, description, salaryRange } = job;
     return (
         <div className="card bg-base-100  shadow-sm p-2 border border-yellow-100">
             <div className="flex gap-2">
@@ -25,7 +26,7 @@ const JobCard = ({ job }) => {
                 </div>
                 <div className="flex items-center">
                     <p className="flex items-center"><FaDollarSign />{salaryRange.min} - {salaryRange.max}</p>
-                    <button className="btn border-pink-300">Apply Now</button>
+                    <NavLink to={`/jobs/${_id}`}><button className="btn border-pink-300">Apply Now</button></NavLink>
                 </div>
             </div>
         </div>
