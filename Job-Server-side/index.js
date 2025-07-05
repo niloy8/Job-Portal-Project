@@ -30,6 +30,7 @@ async function run() {
             res.send("Hello world")
         })
         const jobsCollection = client.db('Jobs-Portal').collection('jobs')
+        const jobsAppplyCollection = client.db('Jobs-Portal').collection('jobs-apply')
 
         app.get('/jobs', async (req, res) => {
             const cursor = jobsCollection.find()
@@ -40,6 +41,17 @@ async function run() {
             const id = req.params.id
             const query = { _id: new ObjectId(id) }
             const result = await jobsCollection.findOne(query)
+            res.send(result)
+        })
+
+        app.post('/jobs-application', async (req, res) => {
+            const applications = req.body
+            const result = await jobsAppplyCollection.insertOne(applications)
+            res.send(result)
+        })
+        app.get('/job-application', async (req, res) => {
+            const cursor = jobsAppplyCollection.find()
+            const result = await cursor.toArray()
             res.send(result)
         })
         // Send a ping to confirm a successful connection

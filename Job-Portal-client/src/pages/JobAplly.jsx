@@ -1,6 +1,13 @@
+import { useParams } from "react-router";
+import useAuth from "../hooks/useAuth";
 
 
 const JobAplly = () => {
+
+    const { id } = useParams()
+    const { user } = useAuth()
+    console.log(id, user);
+
     const handleSubmit = (e) => {
         e.preventDefault()
         const form = e.target
@@ -9,6 +16,8 @@ const JobAplly = () => {
         const resume = form.resume.value
 
         const applyDetails = {
+            job_id: id,
+            user_id: user.email,
             linkdin,
             github,
             resume
