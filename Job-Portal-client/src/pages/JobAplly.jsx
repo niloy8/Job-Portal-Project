@@ -1,5 +1,6 @@
 import { useParams } from "react-router";
 import useAuth from "../hooks/useAuth";
+import Swal from "sweetalert2";
 
 
 const JobAplly = () => {
@@ -22,6 +23,26 @@ const JobAplly = () => {
             github,
             resume
         }
+
+        fetch('http://localhost:3000/jobs-application', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(applyDetails)
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.insertedId) {
+                    Swal.fire({
+                        position: "top-end",
+                        icon: "success",
+                        title: "Your work has been saved",
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                }
+            })
         console.log(applyDetails)
     };
     return (
