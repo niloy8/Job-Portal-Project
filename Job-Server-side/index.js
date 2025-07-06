@@ -59,6 +59,17 @@ async function run() {
             const email = req.query.email
             const query = { user_id: email }
             const result = await jobsAppplyCollection.find(query).toArray()
+
+            for (const application of result) {
+                console.log(application)
+                const query1 = { _id: new ObjectId(application.job_id) }
+                const job = await jobsCollection.findOne(query1)
+                if (job) {
+                    application.title = job.title
+                    application.company = job.company
+                    application.company_logo = job.company_logo
+                }
+            }
             res.send(result)
         })
         // Send a ping to confirm a successful connection

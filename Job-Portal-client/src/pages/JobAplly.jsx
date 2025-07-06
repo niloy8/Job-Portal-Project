@@ -1,4 +1,4 @@
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import useAuth from "../hooks/useAuth";
 import Swal from "sweetalert2";
 
@@ -8,7 +8,7 @@ const JobAplly = () => {
     const { id } = useParams()
     const { user } = useAuth()
     console.log(id, user);
-
+    const nevigate = useNavigate()
     const handleSubmit = (e) => {
         e.preventDefault()
         const form = e.target
@@ -41,6 +41,7 @@ const JobAplly = () => {
                         showConfirmButton: false,
                         timer: 1500
                     });
+                    nevigate('/my-aaplication')
                 }
             })
         console.log(applyDetails)
