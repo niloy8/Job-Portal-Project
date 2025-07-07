@@ -31,7 +31,7 @@ const Myapplication = () => {
                             <th>{index + 1}</th>
                             <td>{job.title}</td>
                             <td>{job.company}</td>
-                            <td><img src={job.company_logo} alt="Logo" /></td>
+                            <td><img className='w-8' src={job.company_logo} alt="Logo" /></td>
                         </tr>
                         )}
 
