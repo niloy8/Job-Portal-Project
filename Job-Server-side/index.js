@@ -81,6 +81,8 @@ async function run() {
             const updateResult = await jobsCollection.updateOne(filter, updateDoc)
             res.send(result)
         })
+
+
         // app.get('/jobs-application', async (req, res) => {
         //     const cursor = jobsAppplyCollection.find()
         //     const result = await cursor.toArray()
@@ -102,6 +104,13 @@ async function run() {
                     application.company_logo = job.company_logo
                 }
             }
+            res.send(result)
+        })
+
+        app.get('/jobs-application/jobs/:job_id', async (req, res) => {
+            const id = req.params.job_id
+            const query = { job_id: id }
+            const result = await jobsAppplyCollection.find(query).toArray()
             res.send(result)
         })
         // Send a ping to confirm a successful connection

@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import useAuth from "../../hooks/useAuth";
+import { Link } from "react-router";
 
 
 const Mypostedjobs = () => {
     const { user } = useAuth()
     const [jobs, setjobs] = useState([])
+    console.log(jobs)
     useEffect(() => {
         fetch(`http://localhost:3000/jobs?email=${user.email}`)
             .then(res => res.json())
@@ -34,6 +36,7 @@ const Mypostedjobs = () => {
                                 <td>{job.company}</td>
                                 <td><img className='w-8' src={job.company_logo} alt="Logo" /></td>
                                 <td>{job.applicationCount}</td>
+                                <td><Link to={`/viewapplications/${job._id}`}><button className="btn btn-link">View Apllication</button></Link></td>
                             </tr>
                             )}
 
