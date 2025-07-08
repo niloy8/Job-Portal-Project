@@ -1,24 +1,174 @@
 
 const Jobpost = () => {
     return (
-        <form className="w-7xl text-center">
-            <div className="card-body">
-                <fieldset className="fieldset grid grid-cols-2">
-                    <div >
-                        <label className="label">Title</label>
-                        <input type="text" className="input" placeholder="Title" />
-                    </div>
-                    <div>
-                        <label className="label">Location</label>
-                        <input type="text" className="input" placeholder="Location" />
+        <div className="min-h-screen flex justify-center items-center bg-gray-50">
+            <form className="w-full max-w-lg  bg-white p-8 rounded shadow">
+                <div className="card-body">
+                    <fieldset className="grid grid-cols-1 gap-4">
+                        <div className="flex flex-col ">
+                            <label className="label text-black">Title</label>
+                            <input
+                                type="text"
+                                name="title"
+                                className="input border border-gray-300 p-2 rounded w-full"
+                                placeholder="Title"
+                            />
+                        </div>
+                        <div className="flex  flex-col">
+                            <label className="label text-black">Location</label>
+                            <input
+                                type="text"
+                                name="location"
+                                className="input border border-gray-300 p-2 rounded w-full"
+                                placeholder="Location"
+                            />
+                        </div>
+
+                        <div className="flex flex-col">
+                            <label className="label text-black">Job Type</label>
+                            <select className="select select-bordered w-52">
+
+                                <option>Hybrid</option>
+                                <option>Full-time</option>
+                                <option>Part Time</option>
+                            </select>
+                        </div>
+
+                        <div className="flex flex-col">
+                            <label className="label text-black">Job Cetagory</label>
+                            <select className="select select-bordered w-52">
+
+                                <option>Hybrid</option>
+                                <option>Full-time</option>
+                                <option>Part Time</option>
+                            </select>
+                        </div>
+
+                        <div className="flex  flex-col">
+                            <label className="label text-black">Application Deadline</label>
+                            <input
+                                type="text"
+                                name="deadline"
+                                className="input border border-gray-300 p-2 rounded w-full"
+                                placeholder="Deadline"
+                            />
+                        </div>
+                        {/*Salary Range*/}
+                        <div className="flex gap-2">
+                            <div className="flex  flex-col">
+                                <label className="label text-black">Max</label>
+                                <input
+                                    type="text"
+                                    name="max"
+                                    className="input border border-gray-300 p-2 rounded w-full"
+                                    placeholder="Max"
+                                />
+                            </div>
+                            <div className="flex  flex-col">
+                                <label className="label text-black">Min</label>
+                                <input
+                                    type="text"
+                                    name="min"
+                                    className="input border border-gray-300 p-2 rounded w-full"
+                                    placeholder="Min"
+                                />
+                            </div>
+                            <div className="flex flex-col">
+                                <label className="label text-black">Currency</label>
+                                <select className="select select-bordered w-52">
+
+                                    <option>BDT</option>
+                                    <option>USD</option>
+                                    <option>ERU</option>
+                                </select>
+                            </div>
+                        </div>
+                        {/**Description */}
+                        <div className="flex  flex-col">
+                            <label className="label text-black">Description</label>
+                            <textarea
+                                type="text"
+                                cols={4}
+                                name="description"
+                                className="border bg-black border-gray-300 p-2 rounded w-full"
+                                placeholder="Description"
+                            />
+                        </div>
+
+                        <div className="flex  flex-col">
+                            <label className="label text-black">Company</label>
+                            <input
+                                type="text"
+                                name="company"
+                                className="input border border-gray-300 p-2 rounded w-full"
+                                placeholder="Company"
+                            />
+                        </div>
+                        <div className="flex  flex-col">
+                            <label className="label text-black">Write Requirements In next line</label>
+                            <textarea
+                                type="text"
+                                cols={4}
+                                name="Requirements"
+                                className="border bg-black border-gray-300 p-2 rounded w-full"
+                                placeholder="Requirements"
+                            />
+                        </div>
+                        <div className="flex  flex-col">
+                            <label className="label text-black">Write the Responsibilities In Next Line</label>
+                            <textarea
+                                type="text"
+                                cols={4}
+                                name="responsibilities"
+                                className="border bg-black border-gray-300 p-2 rounded w-full"
+                                placeholder="Responsibilities"
+                            />
+                        </div>
+                        <div className="flex  flex-col">
+                            <label className="label text-black">hr_email</label>
+                            <input
+                                type="email"
+                                cols={4}
+                                name="hr_email"
+                                className="border bg-black border-gray-300 p-2 rounded w-full"
+                                placeholder="hr_email"
+                            />
+                        </div>
+                        <div className="flex  flex-col">
+                            <label className="label text-black">hr_name</label>
+                            <input
+                                type="text"
+                                cols={4}
+                                name="hr_name"
+                                className="border bg-black border-gray-300 p-2 rounded w-full"
+                                placeholder="hr_name"
+                            />
+                        </div>
+                        <div className="flex  flex-col">
+                            <label className="label text-black">Company Logo</label>
+                            <input
+                                type="url"
+                                cols={4}
+                                name="company-logo"
+                                className="border bg-black border-gray-300 p-2 rounded w-full"
+                                placeholder="logo"
+                            />
+                        </div>
+
+
+                    </fieldset>
+
+                    <div className="flex justify-center mt-8">
+                        <input
+                            type="submit"
+                            className="btn btn-primary w-full"
+                            value="Post Job"
+                        />
                     </div>
 
-                    <div className="w-7xl flex justify-center">
-                        <input type="submit" className="btn btn-primary" value="Post Job" />
-                    </div>
-                </fieldset>
-            </div>
-        </form>
+                </div>
+            </form>
+        </div>
     );
 };
 

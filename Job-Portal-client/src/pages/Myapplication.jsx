@@ -12,7 +12,7 @@ const Myapplication = () => {
             .then(data => setData(data))
     }, [user.email])
     return (
-        <div>
+        <div className="bg-gray-50 p-5">
             My Apllication - {data.length}
             <div className="overflow-x-auto rounded-box border border-base-content/5 bg-base-100">
                 <table className="table">
