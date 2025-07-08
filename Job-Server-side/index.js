@@ -107,6 +107,19 @@ async function run() {
             res.send(result)
         })
 
+        app.patch('/jobs-application/:id', async (req, res) => {
+            const id = req.params.id
+            const data = req.body
+            const filter = { _id: new ObjectId(id) }
+            const updateDoc = {
+                $set: {
+                    status: data.status
+                }
+            }
+            const result = await jobsAppplyCollection.updateOne(filter, updateDoc)
+            res.send(result)
+        })
+
         app.get('/jobs-application/jobs/:job_id', async (req, res) => {
             const id = req.params.job_id
             const query = { job_id: id }

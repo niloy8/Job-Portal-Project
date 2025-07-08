@@ -4,6 +4,23 @@ import { useLoaderData } from "react-router";
 const ViewApplications = () => {
     const applications = useLoaderData()
     console.log(applications)
+
+    const handleUpdateStatus = (e, id) => {
+        console.log(e.target.value, id)
+        const data = {
+            status: e.target.value
+        }
+
+        fetch(`http://localhost:3000/jobs-application/${id}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+            .then(res => res.json())
+            .then(data => console.log(data))
+    };
     return (
         <div>
             <div className="bg-gray-50 p-5">
@@ -26,7 +43,9 @@ const ViewApplications = () => {
                                 <td>{application.user_id}</td>
                                 <td>{application.github}</td>
                                 <td>
-                                    <select defaultValue="Choose A Option" className="select select-xs">
+                                    <select
+                                        onChange={(e) => handleUpdateStatus(e, application._id)}
+                                        defaultValue={application.status || 'choose'} className="select select-xs">
                                         <option>Selected</option>
                                         <option>Rejected</option>
                                         <option>Pending</option>
