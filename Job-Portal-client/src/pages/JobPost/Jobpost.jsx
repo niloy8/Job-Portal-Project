@@ -1,6 +1,8 @@
+import Swal from "sweetalert2";
+import useAuth from "../../hooks/useAuth";
 
 const Jobpost = () => {
-
+    const { user } = useAuth()
     const handleAddjob = (e) => {
         e.preventDefault()
         const formData = new FormData(e.target)
@@ -8,8 +10,29 @@ const Jobpost = () => {
         const initialData = Object.fromEntries(formData.entries())
         const { min, max, currency, ...newJob } = initialData
         newJob.salaryRange = { min, max, currency }
-        newJob.requirements = newJob.requirements.split('/n')
+        newJob.requirements = newJob.requirements.split('\n')
+        newJob.responsibilities = newJob.responsibilities.split('\n')
         console.log(newJob)
+        fetch('http://localhost:3000/jobs', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(newJob)
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.insertedId) {
+                    Swal.fire({
+                        position: "top-end",
+                        icon: "success",
+                        title: "Your work has been saved",
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+
+                }
+            })
     };
     return (
         <div className="min-h-screen flex justify-center items-center bg-gray-50">
@@ -124,7 +147,7 @@ const Jobpost = () => {
                             <textarea
                                 type="text"
                                 cols={4}
-                                name="Requirements"
+                                name="requirements"
                                 className="border bg-black border-gray-300 p-2 rounded w-full"
                                 placeholder="Requirements"
                                 required
@@ -146,6 +169,7 @@ const Jobpost = () => {
                             <input
                                 type="email"
                                 cols={4}
+                                defaultValue={user?.email}
                                 name="hr_email"
                                 className="border bg-black border-gray-300 p-2 rounded w-full"
                                 placeholder="hr_email"
@@ -156,6 +180,7 @@ const Jobpost = () => {
                             <label className="label text-black">hr_name</label>
                             <input
                                 type="text"
+                                defaultValue={user?.name}
                                 cols={4}
                                 name="hr_name"
                                 className="border bg-black border-gray-300 p-2 rounded w-full"
@@ -168,7 +193,7 @@ const Jobpost = () => {
                             <input
                                 type="url"
                                 cols={4}
-                                name="company-logo"
+                                name="company_logo"
                                 className="border bg-black border-gray-300 p-2 rounded w-full"
                                 placeholder="logo"
                                 required

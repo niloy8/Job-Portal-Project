@@ -4,7 +4,7 @@ import { NavLink } from "react-router";
 const JobCard = ({ job }) => {
     const { _id, title, location, company_logo, company, requirements, description, salaryRange } = job;
     return (
-        <div className="card bg-base-100  shadow-sm p-2 border border-yellow-100">
+        <div className="card bg-accent-content shadow-sm p-2 border-2 border-blue-400 ">
             <div className="flex gap-2">
                 <figure className="w-12">
                     <img
