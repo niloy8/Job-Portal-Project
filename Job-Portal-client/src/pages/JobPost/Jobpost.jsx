@@ -1,8 +1,19 @@
 
 const Jobpost = () => {
+
+    const handleAddjob = (e) => {
+        e.preventDefault()
+        const formData = new FormData(e.target)
+        console.log(formData)
+        const initialData = Object.fromEntries(formData.entries())
+        const { min, max, currency, ...newJob } = initialData
+        newJob.salaryRange = { min, max, currency }
+        newJob.requirements = newJob.requirements.split('/n')
+        console.log(newJob)
+    };
     return (
         <div className="min-h-screen flex justify-center items-center bg-gray-50">
-            <form className="w-full max-w-lg  bg-white p-8 rounded shadow">
+            <form onSubmit={handleAddjob} className="w-full max-w-lg  bg-white p-8 rounded shadow">
                 <div className="card-body">
                     <fieldset className="grid grid-cols-1 gap-4">
                         <div className="flex flex-col ">
@@ -47,7 +58,7 @@ const Jobpost = () => {
                         <div className="flex  flex-col">
                             <label className="label text-black">Application Deadline</label>
                             <input
-                                type="text"
+                                type="date"
                                 name="deadline"
                                 className="input border border-gray-300 p-2 rounded w-full"
                                 placeholder="Deadline"
@@ -62,6 +73,7 @@ const Jobpost = () => {
                                     name="max"
                                     className="input border border-gray-300 p-2 rounded w-full"
                                     placeholder="Max"
+                                    required
                                 />
                             </div>
                             <div className="flex  flex-col">
@@ -71,11 +83,12 @@ const Jobpost = () => {
                                     name="min"
                                     className="input border border-gray-300 p-2 rounded w-full"
                                     placeholder="Min"
+                                    required
                                 />
                             </div>
                             <div className="flex flex-col">
                                 <label className="label text-black">Currency</label>
-                                <select className="select select-bordered w-52">
+                                <select name="currency" className="select select-bordered w-52 " required>
 
                                     <option>BDT</option>
                                     <option>USD</option>
@@ -88,6 +101,7 @@ const Jobpost = () => {
                             <label className="label text-black">Description</label>
                             <textarea
                                 type="text"
+                                required
                                 cols={4}
                                 name="description"
                                 className="border bg-black border-gray-300 p-2 rounded w-full"
@@ -100,6 +114,7 @@ const Jobpost = () => {
                             <input
                                 type="text"
                                 name="company"
+                                required
                                 className="input border border-gray-300 p-2 rounded w-full"
                                 placeholder="Company"
                             />
@@ -112,6 +127,7 @@ const Jobpost = () => {
                                 name="Requirements"
                                 className="border bg-black border-gray-300 p-2 rounded w-full"
                                 placeholder="Requirements"
+                                required
                             />
                         </div>
                         <div className="flex  flex-col">
@@ -122,6 +138,7 @@ const Jobpost = () => {
                                 name="responsibilities"
                                 className="border bg-black border-gray-300 p-2 rounded w-full"
                                 placeholder="Responsibilities"
+                                required
                             />
                         </div>
                         <div className="flex  flex-col">
@@ -132,6 +149,7 @@ const Jobpost = () => {
                                 name="hr_email"
                                 className="border bg-black border-gray-300 p-2 rounded w-full"
                                 placeholder="hr_email"
+                                required
                             />
                         </div>
                         <div className="flex  flex-col">
@@ -142,6 +160,7 @@ const Jobpost = () => {
                                 name="hr_name"
                                 className="border bg-black border-gray-300 p-2 rounded w-full"
                                 placeholder="hr_name"
+                                required
                             />
                         </div>
                         <div className="flex  flex-col">
@@ -152,6 +171,7 @@ const Jobpost = () => {
                                 name="company-logo"
                                 className="border bg-black border-gray-300 p-2 rounded w-full"
                                 placeholder="logo"
+                                required
                             />
                         </div>
 
