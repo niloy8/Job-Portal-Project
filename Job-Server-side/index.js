@@ -59,6 +59,26 @@ async function run() {
         app.post('/jobs-application', async (req, res) => {
             const applications = req.body
             const result = await jobsAppplyCollection.insertOne(applications)
+            const id = applications.job_id
+            const query = { _id: new ObjectId(id) }
+            const job = await jobsCollection.findOne(query);
+            let newcount = 0
+            if (job.applicationCount) {
+                newcount = job.applicationCount + 1
+            } else {
+                newcount = 1
+            }
+
+            const filter = { _id: new ObjectId(id) }
+            const updateDoc = {
+                $set: {
+
+                    applicationCount: newcount
+
+
+                }
+            }
+            const updateResult = await jobsCollection.updateOne(filter, updateDoc)
             res.send(result)
         })
         // app.get('/jobs-application', async (req, res) => {

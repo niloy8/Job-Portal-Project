@@ -12,7 +12,35 @@ const Mypostedjobs = () => {
     }, [user.email])
     return (
         <div>
-            My Posted Jobs - {jobs.length}
+            <div className="bg-gray-50 p-5">
+                My Apllication - {jobs.length}
+                <div className="overflow-x-auto rounded-box border border-base-content/5 bg-base-100">
+                    <table className="table">
+                        {/* head */}
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Name</th>
+                                <th>Job</th>
+                                <th>Company Logo</th>
+                                <th>Application Count</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {/* row 1 */}
+                            {jobs.map((job, index) => <tr key={job._id}>
+                                <th>{index + 1}</th>
+                                <td>{job.title}</td>
+                                <td>{job.company}</td>
+                                <td><img className='w-8' src={job.company_logo} alt="Logo" /></td>
+                                <td>{job.applicationCount}</td>
+                            </tr>
+                            )}
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     );
 };
