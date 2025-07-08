@@ -1,8 +1,10 @@
 import Swal from "sweetalert2";
 import useAuth from "../../hooks/useAuth";
+import { useNavigate } from "react-router";
 
 const Jobpost = () => {
     const { user } = useAuth()
+    const navigate = useNavigate()
     const handleAddjob = (e) => {
         e.preventDefault()
         const formData = new FormData(e.target)
@@ -30,7 +32,7 @@ const Jobpost = () => {
                         showConfirmButton: false,
                         timer: 1500
                     });
-
+                    navigate('/my-posted-jobs')
                 }
             })
     };
