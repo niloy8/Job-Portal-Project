@@ -21,7 +21,7 @@ const Signin = () => {
                 const user = result.user
                 const user1 = { email: email }
                 axios.post('http://localhost:3000/jwt', user1)
-                    .then(data => console.log(data))
+                    .then(data => console.log(data.data))
                 navigate(from)
                 console.log(user)
             })
