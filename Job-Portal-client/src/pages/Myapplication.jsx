@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import useAuth from "../hooks/useAuth";
+import axios from "axios";
 
 const Myapplication = () => {
     const [data, setData] = useState([])
@@ -7,9 +8,11 @@ const Myapplication = () => {
     const { user } = useAuth()
 
     useEffect(() => {
-        fetch(`http://localhost:3000/jobs-application?email=${user.email}`)
-            .then(res => res.json())
-            .then(data => setData(data))
+        // fetch(`http://localhost:3000/jobs-application?email=${user.email}`)
+        //     .then(res => res.json())
+        //     .then(data => setData(data))
+        axios.get(`http://localhost:3000/jobs-application?email=${user.email}`, { withCredentials: true })
+            .then(res => setData(res.data))
     }, [user.email])
     return (
         <div className="bg-gray-50 p-5">

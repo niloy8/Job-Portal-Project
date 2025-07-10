@@ -2,11 +2,17 @@ require('dotenv').config()
 const express = require('express');
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
+const cookie_parser = require('cookie-parser')
 const port = process.env.PORT || 3000;
 
 const app = express()
-app.use(cors())
+app.use(cors({
+    origin: "http://localhost:5173",
+    credentials: true
+
+}))
 app.use(express.json())
+app.use(cookie_parser())
 
 
 
@@ -41,12 +47,11 @@ async function run() {
         app.post('/jwt', async (req, res) => {
             const user = req.body
             const token = jwt.sign(user, process.env.JWT_SECRET, { expiresIn: '1h' })
-            res
-                .cookie('token', token, {
-                    httpOnly: true,
-                    secure: false, //
+            res.cookie('token', token, {
+                httpOnly: true,
+                secure: false, //
 
-                })
+            })
                 .send({ success: true })
         })
         app.get('/jobs', async (req, res) => {
@@ -89,10 +94,7 @@ async function run() {
             const filter = { _id: new ObjectId(id) }
             const updateDoc = {
                 $set: {
-
                     applicationCount: newcount
-
-
                 }
             }
             const updateResult = await jobsCollection.updateOne(filter, updateDoc)
@@ -109,10 +111,12 @@ async function run() {
         app.get('/jobs-application', async (req, res) => {
             const email = req.query.email
             const query = { user_id: email }
+            const cok = req.cookies
+            console.log(cok)
             const result = await jobsAppplyCollection.find(query).toArray()
 
             for (const application of result) {
-                console.log(application)
+
                 const query1 = { _id: new ObjectId(application.job_id) }
                 const job = await jobsCollection.findOne(query1)
                 if (job) {
