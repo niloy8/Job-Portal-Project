@@ -16,6 +16,26 @@ app.use(cookie_parser())
 
 
 
+// const logger = (req, res, next) => {
+//     console.log('Inside the LOGGER')
+//     next()
+// }
+const verifyToken = (req, res, next) => {
+    console.log('Inside the verify token')
+    const token = req.cookies.token
+    console.log(token)
+    if (!token) {
+        return res.status(401).send({ message: "Unauthorized" })
+    }
+
+    jwt.verify(token, process.env.JWT_SECRET, (err, decode) => {
+        if (err) {
+            return res.status(401).send({ message: "Unauthorized" })
+        }
+        next()
+    })
+}
+
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.gqjzz.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
 
@@ -108,7 +128,7 @@ async function run() {
         //     res.send(result)
         // })
 
-        app.get('/jobs-application', async (req, res) => {
+        app.get('/jobs-application', verifyToken, async (req, res) => {
             const email = req.query.email
             const query = { user_id: email }
             const cok = req.cookies
