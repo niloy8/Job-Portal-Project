@@ -22,16 +22,17 @@ app.use(cookie_parser())
 // }
 const verifyToken = (req, res, next) => {
     console.log('Inside the verify token')
-    const token = req.cookies.token
+    const token = req?.cookies?.token
     console.log(token)
     if (!token) {
         return res.status(401).send({ message: "Unauthorized" })
     }
 
-    jwt.verify(token, process.env.JWT_SECRET, (err, decode) => {
+    jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
         if (err) {
             return res.status(401).send({ message: "Unauthorized" })
         }
+        req.user = decoded
         next()
     })
 }
@@ -130,6 +131,9 @@ async function run() {
 
         app.get('/jobs-application', verifyToken, async (req, res) => {
             const email = req.query.email
+            if (req.user.email !== email) {
+                return res.status(403).send({ message: "Forbidden" })
+            }
             const query = { user_id: email }
             const cok = req.cookies
             console.log(cok)
