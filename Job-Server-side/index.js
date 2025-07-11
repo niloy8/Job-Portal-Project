@@ -7,7 +7,7 @@ const port = process.env.PORT || 3000;
 
 const app = express()
 app.use(cors({
-    origin: "http://localhost:5173",
+    origin: ["http://localhost:5173"],
     credentials: true
 
 }))
@@ -33,6 +33,7 @@ const verifyToken = (req, res, next) => {
             return res.status(401).send({ message: "Unauthorized" })
         }
         req.user = decoded
+        console.log(req.user.email)
         next()
     })
 }
@@ -72,6 +73,15 @@ async function run() {
                 httpOnly: true,
                 secure: false, //
 
+            })
+                .send({ success: true })
+        })
+
+
+        app.post('/logout', (req, res) => {
+            res.clearCookie('token', {
+                httpOnly: true,
+                secure: false
             })
                 .send({ success: true })
         })
@@ -131,7 +141,8 @@ async function run() {
 
         app.get('/jobs-application', verifyToken, async (req, res) => {
             const email = req.query.email
-            if (req.user.email !== email) {
+
+            if (req.user.email !== req.query.email) {
                 return res.status(403).send({ message: "Forbidden" })
             }
             const query = { user_id: email }

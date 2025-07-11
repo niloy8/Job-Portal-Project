@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut } from "firebase/auth";
 import auth from "../../firebase/firebase.init";
 import { AuthContext } from "./AuthContext";
-
+import axios from 'axios';
 
 const Authprovider = ({ children }) => {
     const [user, setUser] = useState(null);
@@ -32,8 +32,23 @@ const Authprovider = ({ children }) => {
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
             console.log("state caPTURED", currentUser)
+
             setUser(currentUser)
-            setLoading(false)
+            if (currentUser?.email) {
+                const user1 = { email: currentUser.email }
+                axios.post('http://localhost:3000/jwt', user1, { withCredentials: true })
+                    .then(data => {
+                        setLoading(false)
+                        console.log(data.data)
+                    })
+            } else {
+                axios.post('http://localhost:3000/logout', { withCredentials: true })
+                    .then(res => {
+                        console.log(res.data)
+                        setLoading(false)
+                    })
+            }
+
             return () => {
                 unsubscribe()
             }

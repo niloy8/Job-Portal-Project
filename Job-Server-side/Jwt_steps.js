@@ -16,6 +16,7 @@ app.use(cors({
     credentials: true
 }))
 4. validate the token in the server side
-if valid: provide data
+if valid: provide data and also check the token belong to that user.
 if not valid : log out
+
  */
