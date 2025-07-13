@@ -7,7 +7,7 @@ const port = process.env.PORT || 3000;
 
 const app = express()
 app.use(cors({
-    origin: ["http://localhost:5173"],
+    origin: ["http://localhost:5173", "https://job-portal-ad35b.web.app", "https://job-portal-ad35b.firebaseapp.com"],
     credentials: true
 
 }))
@@ -53,7 +53,7 @@ const client = new MongoClient(uri, {
 async function run() {
     try {
         // Connect the client to the server	(optional starting in v4.7)
-        await client.connect();
+        // await client.connect();
 
 
 
@@ -71,7 +71,8 @@ async function run() {
             const token = jwt.sign(user, process.env.JWT_SECRET, { expiresIn: '1h' })
             res.cookie('token', token, {
                 httpOnly: true,
-                secure: false, //
+                secure: process.env.NODE_ENV === "production",
+                sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
 
             })
                 .send({ success: true })
@@ -81,7 +82,8 @@ async function run() {
         app.post('/logout', (req, res) => {
             res.clearCookie('token', {
                 httpOnly: true,
-                secure: false
+                secure: process.env.NODE_ENV === "production",
+                sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
             })
                 .send({ success: true })
         })

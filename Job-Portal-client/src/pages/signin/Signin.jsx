@@ -20,7 +20,7 @@ const Signin = () => {
             .then(result => {
                 const user = result.user
                 // const user1 = { email: email }
-                // axios.post('http://localhost:3000/jwt', user1, { withCredentials: true })
+                // axios.post('https://job-server-side.vercel.app/jwt', user1, { withCredentials: true })
                 //     .then(data => console.log(data.data))
                 navigate(from)
                 console.log(user)

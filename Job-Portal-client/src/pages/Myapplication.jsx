@@ -10,7 +10,7 @@ const Myapplication = () => {
     const Saxios = useAxios()
 
     useEffect(() => {
-        // fetch(`http://localhost:3000/jobs-application?email=${user.email}`)
+        // fetch(`https://job-server-side.vercel.app/jobs-application?email=${user.email}`)
         //     .then(res => res.json())
         //     .then(data => setData(data))
         Saxios.get(`/jobs-application?email=${user.email}`)

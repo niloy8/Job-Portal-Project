@@ -8,7 +8,7 @@ const Mypostedjobs = () => {
     const [jobs, setjobs] = useState([])
     console.log(jobs)
     useEffect(() => {
-        fetch(`http://localhost:3000/jobs?email=${user.email}`)
+        fetch(`https://job-server-side.vercel.app/jobs?email=${user.email}`)
             .then(res => res.json())
             .then(data => setjobs(data))
     }, [user.email])

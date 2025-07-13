@@ -28,7 +28,7 @@ const useAxios = () => {
             }
             return Promise.reject(err)
         })
-    }, [])
+    }, [signOutuser, navigate])
     return secureAxios;
 };
 
