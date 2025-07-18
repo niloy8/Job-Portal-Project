@@ -11,7 +11,7 @@ const Jobpost = () => {
         console.log(formData)
         const initialData = Object.fromEntries(formData.entries())
         const { min, max, currency, ...newJob } = initialData
-        newJob.salaryRange = { min, max, currency }
+        newJob.salaryRange = { min: parseInt(min), max: parseInt(max), currency }
         newJob.requirements = newJob.requirements.split('\n')
         newJob.responsibilities = newJob.responsibilities.split('\n')
         console.log(newJob)
@@ -94,7 +94,7 @@ const Jobpost = () => {
                             <div className="flex  flex-col">
                                 <label className="label text-black">Max</label>
                                 <input
-                                    type="text"
+                                    type="number"
                                     name="max"
                                     className="input border border-gray-300 p-2 rounded w-full"
                                     placeholder="Max"
@@ -104,7 +104,7 @@ const Jobpost = () => {
                             <div className="flex  flex-col">
                                 <label className="label text-black">Min</label>
                                 <input
-                                    type="text"
+                                    type="number"
                                     name="min"
                                     className="input border border-gray-300 p-2 rounded w-full"
                                     placeholder="Min"
