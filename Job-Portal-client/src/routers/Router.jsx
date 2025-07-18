@@ -13,6 +13,7 @@ import Myapplication from "../pages/Myapplication";
 import Jobpost from "../pages/JobPost/Jobpost";
 import Mypostedjobs from "../pages/MyPostedJobs/Mypostedjobs";
 import ViewApplications from "../pages/View Applications/ViewApplications";
+import Alljobs from "../pages/Alljobs/Alljobs";
 
 
 const router = createBrowserRouter([
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
             {
                 path: "/",
                 element: <Home></Home>
+            },
+            {
+                path: "/allJobs",
+                element: <Alljobs></Alljobs>
             },
             {
                 path: "/jobs/:id",
