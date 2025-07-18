@@ -92,7 +92,7 @@ async function run() {
             const search = req.query.search
             const min = req.query.min
             const max = req.query.max
-            console.log(min, max)
+
             let query = {}
             let sortQuery = {}
             if (email) {
@@ -167,7 +167,7 @@ async function run() {
             }
             const query = { user_id: email }
             const cok = req.cookies
-            console.log(cok)
+
             const result = await jobsAppplyCollection.find(query).toArray()
 
             for (const application of result) {

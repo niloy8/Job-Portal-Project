@@ -4,8 +4,8 @@ import JobCard from "../JobCard";
 const Alljobs = () => {
     const [sort, setSort] = useState(false)
     const [search, setSearch] = useState('')
-    const [min, setMin] = useState(0)
-    const [max, setMax] = useState(0)
+    const [min, setMin] = useState('')
+    const [max, setMax] = useState('')
     const { jobs, loading } = useJobs(sort, search, min, max)
     return (
         <div>
