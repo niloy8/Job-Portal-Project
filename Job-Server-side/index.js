@@ -9,7 +9,6 @@ const app = express()
 app.use(cors({
     origin: ["http://localhost:5173", "https://job-portal-ad35b.web.app", "https://job-portal-ad35b.firebaseapp.com"],
     credentials: true
-
 }))
 app.use(express.json())
 app.use(cookie_parser())
@@ -90,13 +89,16 @@ async function run() {
         app.get('/jobs', async (req, res) => {
             const email = req.query.email
             const sort = req.query.sort
+            const search = req.query.search
             console.log(sort)
             let query = {}
             let sortQuery = {}
             if (email) {
                 query = { hr_email: email }
             }
-
+            if (search) {
+                query.title = { $regex: search, $options: 'i' }
+            }
             if (sort === "true") {
                 sortQuery = { 'salaryRange.min': -1 }
             }
